@@ -2,6 +2,15 @@ const mysql = require('mysql');
 
 require('dotenv').config();
 
+// Dotenv directives
+const dotenv = require('dotenv');
+const result = dotenv.config();
+
+// Handle dotenv errors if any
+if (result.error) {
+  throw result.error;
+}
+
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -16,15 +25,6 @@ connection.connect((error) => {
     console.log('Connected to MySQL server as id ' + connection.threadId);
   }
 });
-
-// Dotenv directives
-const dotenv = require('dotenv');
-const result = dotenv.config();
-
-// Handle dotenv errors if any
-if (result.error) {
-  throw result.error;
-}
 
 // Create "mysql_rest_api" schema
 function createMySQLSchema() {

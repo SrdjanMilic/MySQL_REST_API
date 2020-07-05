@@ -4,11 +4,11 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 const bodyParser = require('body-parser');
-
-require('dotenv').config();
-
-// Import database handler module
 const database = require('../modules/db-handler');
+const jwtSecret = process.env.JWT_SECRET;
+const envSettings = require('../modules/dotenv');
+
+envSettings.envSettings;
 
 // parse application/x-www-form-urlencoded
 router.use(bodyParser.urlencoded({
@@ -18,7 +18,6 @@ router.use(bodyParser.urlencoded({
 // parse application/json
 router.use(bodyParser.json());
 
-const jwtSecret = process.env.JWT_SECRET;
 
 // Create users in database
 const createUser = (user, callback) => {
@@ -90,7 +89,6 @@ router.get('/api/v1/users', (req, res) => {
   const listAllUsers = (data, callback) => {
     return database.connection.query('SELECT * FROM mysql_rest_api.users', data, (err, rows) => {
       callback(err, rows);
-      console.log(rows);
     });
   };
 
