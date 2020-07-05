@@ -1,17 +1,13 @@
 const express = require('express');
 const app = express();
 const router = express.Router();
-
-// Import database handler module
 const database = require('./modules/db-handler');
-
-// Port must be declared as variable as otherwise nodemon will crash
-const port = process.env.PORT;
-
-// Handle CORS (Cross-Origin Resource Sharing)
 const cors = require('cors');
-
+const port = process.env.PORT;
 const user = require('./controllers/user-controller');
+const envSettings = require('./modules/dotenv');
+
+envSettings.envSettings;
 
 app.use(router);
 
